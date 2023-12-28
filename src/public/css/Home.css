@@ -1,0 +1,55 @@
+.nav-item {
+  margin-bottom: 20px;
+}
+
+.horizontal-line {
+  height: 1px; /* Độ dài của đường kẻ ngang */
+  background-color: #ECEDED; /* Màu sắc của đường kẻ ngang, thay đổi thành màu bạn muốn */
+  margin: 10px 0; /* Khoảng cách trên và dưới đường kẻ ngang */
+}
+
+
+
+
+
+.slide-bar {
+  position: fixed;
+  left: 0;
+}
+
+
+/*.order {*/
+/*  position: fixed;*/
+/*  right: 0;*/
+/*}*/
+
+.slidebar-list {
+  list-style: none;
+  text-align: center;
+  padding-left: 10px;
+}
+
+.slidebar-item {
+  color: var(--white-color);
+  align-items: center;
+  display: inline-block;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.slidebar-item:hover {
+  opacity: 1;
+}
+
+.slidebar-item a {
+  text-decoration: none;
+}
+
+a.item_active path {
+  fill: #252836;
+}
+
+.count-container {
+  max-width: 325px;
+}
+

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+    <title>Profile</title>
+    <link rel="icon" href="/images/favicon.png" type="image/x-icon"/>
+    <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet"/>
+    <link id="pagestyle" href="/css/admin/account.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+    <style>
+        .avatar {
+            position: relative;
+        }
+
+        .avatar:hover .edit-icon {
+            display: block;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .edit-icon {
+            display: none;
+            position: absolute;
+            /*top: 50%*/
+        }
+
+        .edit-icon i {
+            color: #000; /* Change as per your color scheme */
+        }
+    </style>
+</head>
+<body class="">
+<div class="container position-sticky z-index-sticky top-0">
+    <div class="row ">
+        <div class="col-12">
+            <nav class="mt-4" aria-label="breadcrumb ">
+                <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark"
+                                                           href="<%= (role === 'ADMIN') ? '/admin/dashboard' : '/' %>">Back</a>
+                    </li>
+                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Change profile picture</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+<main class="main-content  mt-0">
+    <div class="container">
+        <div class="page-header min-height-300 border-radius-xl mt-4"
+             style="background-image: url('/images/curved0.jpg'); background-position-y: 50%;">
+            <span class="mask bg-gradient-primary opacity-6"></span>
+        </div>
+        <div class="mb-2 card card-body blur shadow-blur mx-4 mt-n6 overflow-hidden">
+            <div class="row gx-4">
+                <div class="col-auto">
+                    <div class="avatar avatar-xl me-3">
+                        <img id="preview_avatar" src="/images/uploads/avatars/<%= account.avatar %>" alt="profile_image"
+                             class="w-100 border-radius-lg shadow-sm">
+                        <div class="edit-icon bg-gray-200 border-radius-section position-absolute ">
+                            <label class="cursor-pointer avatar m-0" for="change_avatar">
+                                <i class='bx bxs-camera'></i>
+                                <input name="image" type="file" id="change_avatar"
+                                       accept="image/png, image/jpge, image/jpg" class="d-none">
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-auto my-auto">
+                    <div class="h-100">
+                        <h5 class="mb-0">
+                            <%= account.fullname %>
+                        </h5>
+                        <p class="mb-0 text-info text-sm">
+                            <%= account.email %>
+                        </p>
+                        <p class="mb-0 font-weight-bold text-sm">
+                            <%= account.role %>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-12">
+                <h5 class="mb-0">History </h5>
+                <% if (history.length === 0) { %>
+                    <h5 class="text-center">No invoice</h5>`);
+                <% } else { %>
+                <% history.forEach(invoice => { %>
+                <div class="card m-1">
+                    <div class="card-body">
+                        <h5 class="card-title">Invoice id:<%= invoice._id %></h5>
+                        <div class="row justify-content-between">
+                            <div class="col">
+                                <h6 class="card-subtitle fw-semibold">Quantity: <span
+                                            class="fw-light text-muted"><%= invoice.productQuantity %></span>
+                                </h6>
+                            </div>
+                            <div class="col">
+                                <h6 class="card-subtitle fw-semibold">Total: <span
+                                            class="fw-light text-muted"><%= invoice.total %></span>
+                                </h6>
+                            </div>
+                            <div class="col">
+                                <h6 class="card-subtitle fw-semibold">Time: <span
+                                            class="fw-light text-muted"><%= new Date(invoice.datePurchase).toLocaleString() %></span>
+                                </h6>
+                            </div>
+
+                        </div>
+                        <div class="row justify-content-between">
+                            <div class="col">
+                                <h6 class="card-subtitle fw-semibold">Payment method: <span
+                                            class="fw-light text-muted"><%= invoice.paymentMethod %></span>
+                                </h6>
+                            </div>
+                            <div class="col">
+                                <h6 class="card-subtitle fw-semibold">Take: <span
+                                            class="fw-light text-muted"><%= invoice.take %></span>
+                                </h6>
+                            </div>
+                            <div class="col">
+                                <h6 class="card-subtitle fw-semibold">Change: <span
+                                            class="fw-light text-muted"><%= invoice.change %></span>
+                                </h6>
+                            </div>
+
+                        </div>
+                        <div class="table-responsive p-0">
+                            <table class="table align-items-center mb-0">
+                                <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Product
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Brand
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Price
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Quantity
+                                    </th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <% invoice.products.forEach(product => { %>
+
+                                <tr>
+                                    <td>
+                                        <div class="d-flex px-2 py-1">
+                                            <div>
+                                                <img src="/images/uploads/products/<%= product.products.image %>"
+                                                     class="avatar avatar-sm me-3" alt="user1">
+                                            </div>
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm"><%= product.products.name %></h6>
+                                                <p class="text-xs text-secondary mb-0"><%= product.products._id%></p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <p class="text-xs text-secondary mb-0"><%= product.products.category %></p>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <p class="text-xs text-secondary mb-0"><%= product.products.retailPrice %></p>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <p class="text-xs text-secondary mb-0"><%= product.quantity %></p>
+                                    </td>
+                                </tr>
+                                <% } )%>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+                <% }) %>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+</main>
+<!--   Core JS Files   -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"
+></script>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+<script src='/js/admin/script.js'></script>
+<script src="/js/profile.js"></script>
+</body>
+</html>
